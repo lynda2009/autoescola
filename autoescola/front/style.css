@@ -1,0 +1,162 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f8f0f8;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    background-color: black;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div1 {
+    font-size: 24px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+.container2 {
+    width: 100%;
+    min-height: calc(100vh - 70px);
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_formulario {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 35px;
+    background-color: #f3cef3;
+    border: 3px solid #e99bea;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.container_formulario h2 {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 27px;
+    margin-bottom: 25px;
+}
+
+.botoes-tipo {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.botoes-tipo button {
+    flex: 1;
+    padding: 14px 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 16px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.botoes-tipo button:hover {
+    background-color: #a943a9;
+}
+
+.container_formulario form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+}
+
+.container_formulario h3 {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.container_formulario input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding: 15px;
+    margin: 0 0 10px;
+    border: 1px solid #dfa0df;
+    border-radius: 7px;
+    background-color: white;
+    font-size: 17px;
+}
+
+.container_formulario label {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+#botao {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin-top: 8px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#botao:hover {
+    background-color: #a943a9;
+}
+
+#mensagem {
+    text-align: center;
+    overflow-wrap: anywhere;
+    margin-top: 18px;
+    font-weight: bold;
+}
+
+.sucesso {
+    color: green;
+}
+
+.erro {
+    color: red;
+}
+
+@media (max-width: 600px) {
+    .container2 {
+        padding: 20px 12px;
+    }
+
+    .container_formulario {
+        padding: 22px;
+    }
+
+    .botoes-tipo {
+        gap: 8px;
+    }
+
+    .botoes-tipo button {
+        font-size: 14px;
+    }
+}

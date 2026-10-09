@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autoescola | Cadastros</title>
+  <link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+    <header class="container">
+        <div class="div1">AUTOESCOLA</div>
+    </header>
+    <main class="container2">
+        <section class="container_formulario">
+            <h2>Cadastro da Autoescola</h2>
+            <div class="botoes-tipo">
+                <button type="button" id="botaoAluno" onclick="mostrarFormulario('aluno')">
+                    Alunos
+                </button>
+                <button type="button" id="botaoInstrutor" onclick="mostrarFormulario('instrutor')">
+                    Instrutores
+                </button>
+            </div>
+            <form id="formularioAluno">
+                <h3>Cadastro de Aluno</h3>
+                <input type="text" id="nomeAluno" placeholder="Nome completo" required>
+                <input type="email" id="emailAluno" placeholder="E-mail" required>
+                <input type="text" id="telefoneAluno" placeholder="Telefone">
+                <input type="date" id="dataAluno" required>
+                <button type="submit" id="botao">Cadastrar aluno</button>
+            </form>
+
+            <form id="formularioInstrutor" style="display: none;">
+                <h3>Cadastro de Instrutor</h3>
+                <input type="text" id="nomeInstrutor" placeholder="Nome completo" required>
+                <input type="email" id="emailInstrutor" placeholder="E-mail" required>
+                <input type="text" id="telefoneInstrutor" placeholder="Telefone">
+                <input type="text" id="categoriaInstrutor" placeholder="Categoria CNH (ex.: Categoria B)" required>
+                <button type="submit" id="botao">Cadastrar instrutor</button>
+            </form>
+            <p id="mensagem"></p>
+        </section>
+    </main>
+    <script>
+        const formularioAluno = document.getElementById("formularioAluno");
+        const formularioInstrutor = document.getElementById("formularioInstrutor");
+        const mensagem = document.getElementById("mensagem");
+        function mostrarFormulario(tipo) {
+            formularioAluno.style.display = tipo === "aluno" ? "flex" : "none";
+            formularioInstrutor.style.display = tipo === "instrutor" ? "flex" : "none";
+            mensagem.textContent = "";
+        }
+        formularioAluno.addEventListener("submit", async function(event) {
+            event.preventDefault()
+            const aluno = {
+                nome: document.getElementById("nomeAluno").value,
+                email: document.getElementById("emailAluno").value,
+                telefone: document.getElementById("telefoneAluno").value,
+                data_nascimento: document.getElementById("dataAluno").value
+            };
+            await cadastrar(
+                "../back/index.php?rota=alunos/create",
+                aluno,
+                formularioAluno,
+                "Aluno"
+            );
+        });
+        formularioInstrutor.addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const instrutor = {
+                nome: document.getElementById("nomeInstrutor").value,
+                email: document.getElementById("emailInstrutor").value,
+                telefone: document.getElementById("telefoneInstrutor").value,
+                categoria_cnh: document.getElementById("categoriaInstrutor").value
+            };
+
+            await cadastrar(
+                "../back/index.php?rota=instrutores/create",
+                instrutor,
+                formularioInstrutor,
+                "Instrutor"
+            );
+        });
+        async function cadastrar(url, dados, formulario, tipo) {
+            mensagem.textContent = "Enviando cadastro...";
+            mensagem.className = "";
+            try {
+                const resposta = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(dados)
+                });
+                const resultado = await resposta.json();
+                if (resposta.ok) {
+                    mensagem.textContent =
+                        resultado.mensagem || tipo + " cadastrado com sucesso!";
+                    mensagem.className = "sucesso";
+                    formulario.reset();
+                } else {
+                    mensagem.textContent =
+                        resultado.erro || resultado.mensagem || "Não foi possível cadastrar.";
+                    mensagem.className = "erro";
+                }
+            } catch (erro) {
+                mensagem.textContent = "ERRO.";
+                mensagem.className = "erro";
+            }
+        }
+    </script>
+</body>
+</html>
